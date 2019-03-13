@@ -12,8 +12,8 @@ function createMenuData (data) {
     }
   })
 
-  var makeHash = (parent) => {
-    var hash = {}
+  let makeHash = (parent) => {
+    let hash = {}
     hash.title = parent
     hash.data = []
     children.forEach(function (child) {
