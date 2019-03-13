@@ -1,25 +1,29 @@
 function createMenuData (data) {
-  let splitstring = data.map(string => string.split('/'))
+  let parents = []
+  let children = []
 
-  let allParents = splitstring.map(string => string[0])
-  let uniqueParents = [...new Set(allParents)].sort()
+  let splitString = data.map(string => string.split('/'))
 
-  let allChildren = splitstring.map(string => string[1])
-  let definedChildren = allChildren.filter(element => typeof element === 'string')
+  splitString.forEach(function (element) {
+    parents.push(element[0])
+    parents = [...new Set(parents)].sort()
+    if (typeof element[1] !== 'undefined') {
+      children.push(element[1])
+    }
+  })
 
-  function makeHash (parent) {
+  const makeHash = function (parent) {
     var hash = {}
     hash['title'] = parent
     hash['data'] = []
-    definedChildren.forEach(function (child) {
+    children.forEach(function (child) {
       if (child.includes(parent)) {
         hash['data'].push(child)
       }
     })
     return hash
   }
-  let finalArray = uniqueParents.map(makeHash).filter(pair => pair.data.length > 0)
-  return finalArray
+  return parents.map(makeHash).filter(pair => pair.data.length > 0)
 }
 
 describe('menu Data Generator', () => {
