@@ -7,18 +7,18 @@ function createMenuData (data) {
   splitString.forEach(function (element) {
     parents.push(element[0])
     parents = [...new Set(parents)].sort()
-    if (typeof element[1] !== 'undefined') {
+    if (element[1]) {
       children.push(element[1])
     }
   })
 
-  const makeHash = function (parent) {
+  var makeHash = (parent) => {
     var hash = {}
-    hash['title'] = parent
-    hash['data'] = []
+    hash.title = parent
+    hash.data = []
     children.forEach(function (child) {
       if (child.includes(parent)) {
-        hash['data'].push(child)
+        hash.data.push(child)
       }
     })
     return hash
